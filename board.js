@@ -45,9 +45,7 @@
     var that = this;
     
     _.each(this.bombLocations, function(value, posString) {
-      console.log("bombLocation: ", posString);
       var adjacentTiles = that.adjacentTiles(posString);
-      // console.log("adjacentTiles: ", adjacentTiles);
       _.each(that.adjacentTiles(posString), function(adjPosString) {
         if (!that.bombLocations[adjPosString]) {
           that.tiles[adjPosString] += 1;

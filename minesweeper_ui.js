@@ -26,7 +26,6 @@
       'expert': [30, 16, 99]
     };
     
-    //find the difficulty checked and build a new board of that size
     var difficulty = $('input[name=difficulty]:checked').val();
     
     this.game = new Minesweeper.Game(difficulties[difficulty]);
@@ -59,7 +58,6 @@
   };
   
 	UI.prototype.bindMouseClicks = function() {
-    // on click radio button... generate board
     $("input[name='difficulty']").change(this.changeBoardDifficulty.bind(this));
     $(".start-button").on("click", this.startGame.bind(this));
     $("#board").on("mouseup", ".tile", this.onTileClicked.bind(this));
@@ -72,9 +70,8 @@
         this.revealTile($tile);
       } else if (event.button === 2) {
         this.flagTile($tile);
-      }
-      console.log("event.button", event.button);
-      // this.revealTile($tile);
+      };
+      // else if button = 0 && 2 do cool stuff...
       if (this.game.isWon()) {
         this.game.end();
         // stop timer
