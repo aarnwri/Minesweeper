@@ -13,11 +13,7 @@
   };
   
   Game.prototype.isWon = function() {
-    if (_.isEqual(this.board.tilesToReveal, this.board.revealedTiles)) {
-      return true;
-    } else {
-      return false;
-    };
+    return (_.isEqual(this.board.tilesToReveal, this.board.revealedTiles));
   };
   
   Game.prototype.start = function() {
