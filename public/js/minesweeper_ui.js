@@ -4,6 +4,7 @@
   
   var UI = Minesweeper.UI = function() {
     
+    this.bindMouseClicks();
   };
   
   
@@ -20,7 +21,7 @@
   };
   
 	UI.prototype.bindMouseClicks = function() {
-    $("input[name='difficulty']").change(this.changeBoardDifficulty.bind(this));
+    // $("input[name='difficulty']").change(this.changeBoardDifficulty.bind(this));
     $(".start-button").on("click", this.startGame.bind(this));
     $("#board").on("mouseup", ".tile", this.onTileClicked.bind(this));
   };

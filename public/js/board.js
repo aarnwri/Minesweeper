@@ -47,7 +47,7 @@
     
     this.bombLocations = [];
     _.each(this.tiles, function(tile, location) {
-      if (tile.isBomb()) {
+      if (tile.isBomb) {
         that.bombLocations.push(location);
       };
     });

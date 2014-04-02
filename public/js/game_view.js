@@ -11,13 +11,13 @@
       'expert': [30, 16, 99]
     }
     
-    this.boardView = new BoardView({
+    this.boardView = new Minesweeper.BoardView({
       $el: $("#board"), 
       board: this.game.board,
       difficulty: this.gameDifficulties['beginner']
     });
     
-    this.generateBoard();
+    $("input[name='difficulty']").change(this.changeBoardDifficulty.bind(this));
   }
   
   GameView.prototype.changeBoardDifficulty = function() {
@@ -25,9 +25,9 @@
       
     } else {
       var difficulty = $('input[name=difficulty]:checked').val();
+      difficulty = this.gameDifficulties[difficulty];
       
-      this.game = new Minesweeper.Game(this.gameDifficulties[difficulty]);
-      
+      this.game = new Minesweeper.Game(difficulty);
       this.boardView.generateBoard(difficulty);
     };
   };

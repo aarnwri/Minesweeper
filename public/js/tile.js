@@ -1,7 +1,7 @@
 (function(root) {
   var Minesweeper = root.Minesweeper = (root.Minesweeper || {});
   
-  var Tile = Minesweeper.tile = function() {
+  var Tile = Minesweeper.Tile = function() {
     this.isBomb = false;
     this.isFlagged = false;
     this.isFlagable = false;

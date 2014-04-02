@@ -5,29 +5,34 @@
     this.$el = options['$el'];
     this.board = options['board'];
     
-    this.generateBoard(options['difficulty'])
+    this.tileViews = [];
+    
+    this.generateBoard(options['difficulty']);
   };
   
   BoardView.prototype.generateBoard = function(difficulty) {
+    console.log("generateBoard called");
+    console.log(difficulty);
+    var sizeX = difficulty[0];
+    var sizeY = difficulty[1];
     
-    
-    var $boardEl = $("#board");
-    
-    //TODO: change this to use jquery data elements
-  
-    var buildRows = function() {
-      var rows = "";
-      for (var i = 0; i < that.game.board.sizeY; i++) {
-        rows += "<div class=\"row\">";
-        for (var j = 0; j < that.game.board.sizeX; j++) {
-          rows += "<div class=\"tile\" data-x=\"" + j + "\" data-y=\"" + i + "\"></div>"
-        };
-        rows += "</div>";
+    this.$el.html();
+    console.log(this.$el);
+   
+    for (var i = 0; i < sizeY; i++) {
+      var row = $('<div class="row"></div>');
+      for (var j = 0; j < sizeX; j++) {
+        var tile = $('<div class="tile"></div>');
+        var tileLocation = j.toString() + "," + i.toString();
+        tile.data({location: tileLocation});
+        this.tileViews.push(new Minesweeper.TileView({
+          $el: tile, 
+          tile: this.board.tiles[tileLocation]
+        }));
+        row.append(tile);
       };
-      return rows;
+      this.$el.append(row);
     };
-  
-    $boardEl.html(buildRows());
   };
   
 })(this);
