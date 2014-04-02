@@ -9,7 +9,7 @@
     
     this.board = new Minesweeper.Board(boardSizeX, boardSizeY, numBombs);
     
-    this.started = false;
+    this.isStarted = false;
   };
   
   Game.prototype.isWon = function() {
@@ -17,11 +17,11 @@
   };
   
   Game.prototype.start = function() {
-    this.started = true;
+    this.isStarted = true;
   }
   
   Game.prototype.end = function() {
-    this.started = false;
+    this.isStarted = false;
   }
   
 })(this);

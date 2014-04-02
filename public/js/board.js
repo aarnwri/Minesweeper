@@ -7,65 +7,80 @@
     this.numBombs = numBombs;
     
     this.tiles = {};
-    this.tilesToReveal = {};
-    this.revealedTiles = {};
     
-    this.bombLocations = {};
-    this.flaggedLocations = {};
+    this.bombLocations = [];
+    this.flaggedLocations = [];
+    
+    this.tilesToReveal = [];
+    this.revealedTiles = [];
+    
     
     this.generateBoard();
     this.setBombs();
-    this.updateTiles();
+    this.updateBombLocations();
+    this.updateAdjacentBombCounts();
+    this.updateTilesToReveal();
   };
   
   Board.prototype.generateBoard = function() {
     for (var i = 0; i < this.sizeY; i++) {
       for (var j = 0; j < this.sizeX; j++) {
-        this.tiles[(j + "," + i)] = 0;
-        this.tilesToReveal[(j + "," + i)] = true;
+        this.tiles[(j + "," + i)] = new Minesweeper.Tile();
       };
     };
   };
   
   Board.prototype.setBombs = function() {
     var availableTiles = _.keys(this.tiles);
-
+    var bombLocation = _.sample(availableTiles)
+    
     for (var i = 0; i < this.numBombs; i++) {
-      var bombLocation = _.sample(availableTiles);
-      this.bombLocations[bombLocation] = true;
-      this.tiles[bombLocation] = "B";
-      delete this.tilesToReveal[bombLocation];
-      
+      this.tiles[bombLocation].setBomb();
+
       var bombIdx = _.indexOf(availableTiles, bombLocation);
       availableTiles.splice(bombIdx, 1);
     };
   };
   
-  Board.prototype.updateTiles = function() {
+  Board.prototype.updateBombLocations = function() {
     var that = this;
     
-    _.each(this.bombLocations, function(value, posString) {
-      var adjacentTiles = that.adjacentTiles(posString);
-      _.each(that.adjacentTiles(posString), function(adjPosString) {
-        if (!that.bombLocations[adjPosString]) {
-          that.tiles[adjPosString] += 1;
-        };
+    this.bombLocations = [];
+    _.each(this.tiles, function(tile, location) {
+      if (tile.isBomb()) {
+        that.bombLocations.push(location);
+      };
+    });
+  };
+  
+  Board.prototype.updateAdjacentBombCounts = function() {
+    var that = this;
+    
+    _.each(this.bombLocations, function(location) {
+      _.each(that.adjacentTiles(location), function(adjLocation) {
+        that.tiles[adjLocation].incrementBombCount();
       });
     });
   };
   
-  Board.prototype.onBoard = function(posString) {
-    if (this.tiles.hasOwnProperty(posString)) {
-      return true;
-    } else {
-      return false;
-    };
+  Board.prototype.updateTilesToReveal = function() {
+    var that = this;
+    
+    _.each(this.tiles, function(tile, location) {
+      if (!tile.isBomb) {
+        that.tilesToReveal.push(location);
+      }
+    });
   };
   
-  Board.prototype.adjacentTiles = function(posString) {
+  Board.prototype.onBoard = function(location) {
+    return (this.tiles.hasOwnProperty(location));
+  };
+  
+  Board.prototype.adjacentTiles = function(location) {
     var that = this
     
-    var pos = this.parsePosString(posString);
+    var pos = this.parseLocationString(location);
     
     var x = pos[0], y = pos[1];
     var newPositions = [
@@ -79,17 +94,42 @@
       [x - 1, y    ]
     ]
     
-    var newPosStrings = _.map(newPositions, function(newPos) {
+    var newLocations = _.map(newPositions, function(newPos) {
       return newPos.join();
     });
-    
-    return _.filter(newPosStrings, function(newPosString) {
-      return that.onBoard(newPosString);
+    return _.filter(newLocations, function(newLocation) {
+      return that.onBoard(newLocation);
     });
   };
   
-  Board.prototype.parsePosString = function(posString) {
-    return _.map(posString.split(","), function(value) {
+  Board.prototype.revealTiles = function(location) {
+    var that = this;
+    
+    this.tiles[location].reveal();
+    this.revealedTiles.push(location);
+    
+    if (this.tiles[location].adjacentBombCount === 0 && 
+        !this.tiles[location].isRevealed) {
+      _.each(this.adjacentTiles(location), function(adjLocation) {
+        that.revealTiles(adjLocation);
+      });
+    };
+  };
+  
+  Board.prototype.flagLocation = function(location) {
+    this.tiles[location].setFlag();
+    this.flaggedLocations.push(location);
+  };
+  
+  Board.prototype.unFlagLocation = function(location) {
+    this.tiles[location].removeFlag();
+    
+    var flagIdx = _.indexOf(flaggedLocations, location);
+    flaggedLocations.splice(flagIdx, 1);
+  }
+  
+  Board.prototype.parseLocationString = function(location) {
+    return _.map(location.split(","), function(value) {
       return parseInt(value);
     });
   };

@@ -10,7 +10,7 @@
   };
   
   UI.prototype.changeBoardDifficulty = function() {
-    if (this.game.started) {
+    if (this.game.isStarted) {
       
     } else {
       this.generateBoard();
@@ -32,6 +32,8 @@
     this.board = this.game.board;
     
     var $boardEl = $("#board");
+    
+    //TODO: change this to use jquery data elements
   
     var buildRows = function() {
       var rows = "";
