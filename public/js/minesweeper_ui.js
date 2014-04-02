@@ -2,53 +2,13 @@
   
   var Minesweeper = root.Minesweeper = (root.Minesweeper || {});
   
-  var UI = Minesweeper.UI = function(game) {
-    this.game = game;
-    this.board = game.board;
+  var UI = Minesweeper.UI = function() {
     
-    this.generateBoard();
   };
   
-  UI.prototype.changeBoardDifficulty = function() {
-    if (this.game.isStarted) {
-      
-    } else {
-      this.generateBoard();
-    };
-  };
   
-  UI.prototype.generateBoard = function() {
-    var that = this;
-    
-    var difficulties = {
-      'beginner': [8, 8, 10],
-      'intermediate': [16, 16, 40],
-      'expert': [30, 16, 99]
-    };
-    
-    var difficulty = $('input[name=difficulty]:checked').val();
-    
-    this.game = new Minesweeper.Game(difficulties[difficulty]);
-    this.board = this.game.board;
-    
-    var $boardEl = $("#board");
-    
-    //TODO: change this to use jquery data elements
   
-    var buildRows = function() {
-      var rows = "";
-      for (var i = 0; i < that.game.board.sizeY; i++) {
-        rows += "<div class=\"row\">";
-        for (var j = 0; j < that.game.board.sizeX; j++) {
-          rows += "<div class=\"tile\" data-x=\"" + j + "\" data-y=\"" + i + "\"></div>"
-        };
-        rows += "</div>";
-      };
-      return rows;
-    };
   
-    $boardEl.html(buildRows());
-  };
   
   UI.prototype.startGame = function() {
     this.game.end();

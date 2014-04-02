@@ -11,8 +11,10 @@
     
     <script>
     $(document).ready(function() {
-      var g = new Minesweeper.Game(8, 8, 10);
-      var ui = new Minesweeper.UI(g);
+      var g = new Minesweeper.Game([8, 8, 10]);
+      var gameView = new GameView({game: g});
+      
+      var ui = new Minesweeper.UI();
       ui.bindMouseClicks();
     })
     </script>
