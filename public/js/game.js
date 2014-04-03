@@ -1,27 +1,42 @@
 (function(root) {
   var Minesweeper = root.Minesweeper = (root.Minesweeper || {});
   
-  var Game = Minesweeper.Game = function(difficulty) {
-    
-    var boardSizeX = difficulty[0];
-    var boardSizeY = difficulty[1];
-    var numBombs = difficulty[2];
-    
-    this.board = new Minesweeper.Board(boardSizeX, boardSizeY, numBombs);
-    
-    this.isStarted = false;
+  var DifficultyLevels = Minesweeper.DifficultyLevels = {
+    'beginner': [8, 8, 10],
+    'intermediate': [16, 16, 40],
+    'expert': [30, 16, 99]
   };
   
-  Game.prototype.isWon = function() {
-    return (_.isEqual(this.board.tilesToReveal, this.board.revealedTiles));
+  var Game = Minesweeper.Game = function(options) {
+    this.difficulty = options['difficulty'];
+    
+    var boardSizeX = Minesweeper.DifficultyLevels[this.difficulty][0];
+    var boardSizeY = Minesweeper.DifficultyLevels[this.difficulty][1];
+    var numBombs = Minesweeper.DifficultyLevels[this.difficulty][2];
+    
+    this.board = new Minesweeper.Board(boardSizeX, boardSizeY, numBombs);
+    this.isStarted = false;
+    this.isWon = false;
+    this.isLost = false;
+  };
+  
+  Game.prototype.checkForWin = function() {
+    this.isWon = ($(this.board.tilesToReveal).not(this.board.revealedTiles).length === 0 &&
+                  $(this.board.revealedTiles).not(this.board.tilesToReveal).length === 0);
+    return this.isWon;
+  };
+  
+  Game.prototype.checkForLoss = function() {
+    this.isLost = this.board.bombRevealed;
+    return this.isLost;
   };
   
   Game.prototype.start = function() {
     this.isStarted = true;
-  }
+  };
   
   Game.prototype.end = function() {
     this.isStarted = false;
-  }
+  };
   
 })(this);

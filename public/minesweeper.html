@@ -6,16 +6,19 @@
     <script src="js/tile.js"></script>
     <script src="js/board.js"></script>
     <script src="js/game.js"></script>
-    <script src="js/tile_view.js"></script>
-    <script src="js/board_view.js"></script>
-    <script src="js/game_view.js"></script>
-    <script src="js/minesweeper_ui.js"></script>
+    <script src="js/views/tile_view.js"></script>
+    <script src="js/views/board_view.js"></script>
+    <script src="js/views/game_view.js"></script>
     <link href="css/minesweeper.css" rel="stylesheet">
     
     <script>
     $(document).ready(function() {
-      var g = new Minesweeper.Game([8, 8, 10]);
-      var gameView = new Minesweeper.GameView({game: g});
+      var g = new Minesweeper.Game({
+        difficulty: 'beginner'
+      });
+      var gameView = new Minesweeper.GameView({
+        game: g
+      });
     })
     </script>
       

@@ -9,7 +9,7 @@
     this.tiles = {};
     
     this.bombLocations = [];
-    this.flaggedLocations = [];
+    this.bombRevealed = false;
     
     this.tilesToReveal = [];
     this.revealedTiles = [];
@@ -19,7 +19,7 @@
     this.setBombs();
     this.updateBombLocations();
     this.updateAdjacentBombCounts();
-    this.updateTilesToReveal();
+    this.updateInitialTilesToReveal();
   };
   
   Board.prototype.generateBoard = function() {
@@ -32,9 +32,9 @@
   
   Board.prototype.setBombs = function() {
     var availableTiles = _.keys(this.tiles);
-    var bombLocation = _.sample(availableTiles)
     
     for (var i = 0; i < this.numBombs; i++) {
+      var bombLocation = _.sample(availableTiles);
       this.tiles[bombLocation].setBomb();
 
       var bombIdx = _.indexOf(availableTiles, bombLocation);
@@ -57,19 +57,19 @@
     var that = this;
     
     _.each(this.bombLocations, function(location) {
-      _.each(that.adjacentTiles(location), function(adjLocation) {
+      _.each(that.adjacentLocations(location), function(adjLocation) {
         that.tiles[adjLocation].incrementBombCount();
       });
     });
   };
   
-  Board.prototype.updateTilesToReveal = function() {
+  Board.prototype.updateInitialTilesToReveal = function() {
     var that = this;
     
     _.each(this.tiles, function(tile, location) {
       if (!tile.isBomb) {
         that.tilesToReveal.push(location);
-      }
+      };
     });
   };
   
@@ -77,8 +77,8 @@
     return (this.tiles.hasOwnProperty(location));
   };
   
-  Board.prototype.adjacentTiles = function(location) {
-    var that = this
+  Board.prototype.adjacentLocations = function(location) {
+    var that = this;
     
     var pos = this.parseLocationString(location);
     
@@ -104,29 +104,34 @@
   
   Board.prototype.revealTiles = function(location) {
     var that = this;
-    
-    this.tiles[location].reveal();
-    this.revealedTiles.push(location);
-    
-    if (this.tiles[location].adjacentBombCount === 0 && 
-        !this.tiles[location].isRevealed) {
-      _.each(this.adjacentTiles(location), function(adjLocation) {
-        that.revealTiles(adjLocation);
-      });
+    if(this.tiles[location].reveal()) {
+      this.revealedTiles.push(location);
+      
+      if (this.tiles[location].isBomb) {
+        this.bombRevealed = true;
+        this.revealBombs();
+      } else if (this.tiles[location].adjacentBombCount === 0 && 
+                (!this.tiles[location].isFlagged)) {
+        _.each(this.adjacentLocations(location), function(adjLocation) {
+          if (!that.tiles[adjLocation].isRevealed) {
+            that.revealTiles(adjLocation);
+          };
+        });
+      };
     };
   };
   
-  Board.prototype.flagLocation = function(location) {
-    this.tiles[location].setFlag();
-    this.flaggedLocations.push(location);
+  Board.prototype.revealBombs = function() {
+    var that = this;
+    
+    _.each(this.bombLocations, function(location) {
+      that.tiles[location].reveal();
+    });
   };
   
-  Board.prototype.unFlagLocation = function(location) {
-    this.tiles[location].removeFlag();
-    
-    var flagIdx = _.indexOf(flaggedLocations, location);
-    flaggedLocations.splice(flagIdx, 1);
-  }
+  Board.prototype.toggleFlag = function(location) {
+    this.tiles[location].toggleFlag();
+  };
   
   Board.prototype.parseLocationString = function(location) {
     return _.map(location.split(","), function(value) {
