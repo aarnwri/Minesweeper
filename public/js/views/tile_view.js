@@ -15,6 +15,7 @@
         this.revealTile();
       } else if (event.button === 2) {
         this.toggleFlag();
+        this.boardView.updateLocationsLeftToFlag();
       };
       this.boardView.updateTiles();
       this.boardView.gameView.checkForWin();

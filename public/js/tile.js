@@ -9,6 +9,12 @@
     this.adjacentBombCount = 0;
   };
   
+  Tile.numFlaggedTiles = 0;
+  
+  Tile.resetNumFlaggedTiles = function() {
+    Tile.numFlaggedTiles = 0;
+  };
+  
   Tile.prototype.setBomb = function() {
     this.isBomb = true;
   };
@@ -16,9 +22,11 @@
   Tile.prototype.toggleFlag = function() {
     if (this.isFlagged) {
       this.isFlagged = false;
+      Tile.numFlaggedTiles -= 1;
     } else {
       if (!this.isRevealed) {
         this.isFlagged = true;
+        Tile.numFlaggedTiles += 1;
       };
     };
   };

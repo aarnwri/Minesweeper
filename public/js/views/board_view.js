@@ -38,6 +38,7 @@
   BoardView.prototype.resetBoard = function(difficulty) {
     this.board = this.gameView.game.board;
     this.generateBoard(difficulty);
+    this.updateLocationsLeftToFlag();
   }
   
   BoardView.prototype.updateTiles = function() {
@@ -45,6 +46,11 @@
       view.updateTile();
     });
   };
+  
+  BoardView.prototype.updateLocationsLeftToFlag = function() {
+    var numLocations = this.board.updateLocationsLeftToFlag();
+    $(".locations-left-to-flag").html('Bombs Left: ' + numLocations);
+  }
   
   BoardView.prototype.revealBombs = function() {
     this.board.revealBombs();

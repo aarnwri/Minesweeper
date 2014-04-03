@@ -15,6 +15,7 @@
     var numBombs = Minesweeper.DifficultyLevels[this.difficulty][2];
     
     this.board = new Minesweeper.Board(boardSizeX, boardSizeY, numBombs);
+    Minesweeper.Tile.resetNumFlaggedTiles();
     this.isStarted = false;
     this.isWon = false;
     this.isLost = false;

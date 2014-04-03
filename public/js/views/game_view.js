@@ -3,6 +3,7 @@
   
   var GameView = Minesweeper.GameView = function(options) {
     this.game = options['game'];
+    this.setupGameData();
     
     this.boardView = new Minesweeper.BoardView({
       $el: $("#board"),
@@ -29,7 +30,14 @@
     this.game.end();
     this.changeBoardDifficulty();
     $("#winning-message").empty();
+    this.setupGameData();
     this.game.start();
+  };
+  
+  GameView.prototype.setupGameData = function() {
+    var $locationsLeftToFlag = $('<div class="locations-left-to-flag">Bombs Left: ' + 
+                                  this.game.board.numBombs +'</div><br><br>');
+    $("#game-data").html($locationsLeftToFlag);
   };
   
   GameView.prototype.endGame = function() {

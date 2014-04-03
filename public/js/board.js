@@ -10,10 +10,10 @@
     
     this.bombLocations = [];
     this.bombRevealed = false;
+    this.locationsLeftToFlag = numBombs;
     
     this.tilesToReveal = [];
     this.revealedTiles = [];
-    
     
     this.generateBoard();
     this.setBombs();
@@ -71,6 +71,14 @@
         that.tilesToReveal.push(location);
       };
     });
+  };
+  
+  Board.prototype.updateLocationsLeftToFlag = function() {
+    this.locationsLeftToFlag = this.numBombs - Minesweeper.Tile.numFlaggedTiles;
+    if (this.locationsLeftToFlag < 0) {
+      this.locationsLeftToFlag = 0;
+    };
+    return this.locationsLeftToFlag;
   };
   
   Board.prototype.onBoard = function(location) {
