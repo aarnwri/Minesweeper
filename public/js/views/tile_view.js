@@ -34,12 +34,10 @@
       } else {
         this.$el.addClass("_" + this.tile.adjacentBombCount.toString() + " revealed");
       }
-    } else {
-      if (this.tile.isFlagged) {
+    } else if (this.tile.isFlagged) {
       this.$el.addClass("_F");
-      } else {
-        this.$el.removeClass("_F");
-      }
+    } else {
+      this.$el.removeClass("_F");
     }
   };
 

@@ -77,8 +77,6 @@
   
 })(this);
 
-// * you don't need semi-colons after if (...){...}'s, for (...){...}'s, or even most function definitions
-// * one exception to the above is that foo = function() {}; does "need" a semi-colon (except javascript would automatically put one there anyway)
 // * if () {} else {if () {}} structures are typically written as if (...) {...} else if (...) {...} which is equivalent
 // * Tile.prototype.reveal could be rewritten as Tile.prototype.reveal = function() {return (this.isRevealed = !this.isFlagged);}
 // * options['difficulty'] is equivalent to options.difficulty
