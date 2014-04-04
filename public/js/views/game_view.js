@@ -5,34 +5,41 @@
     this.game = options.game;
     this.setupGameData();
     
+    this.hasBeenPlayed = false;
     this.boardView = new Minesweeper.BoardView({
       $el: $("#board"),
       board: this.game.board,
       gameView: this
     })
     
-    $("input[name='difficulty']").change(this.changeBoardDifficulty.bind(this));
+    debugger;
+    $("input[name='difficulty']").change(this.resetGameBoard.bind(this));
     $(".start-button").on("click", this.startGame.bind(this));
   };
   
-  GameView.prototype.changeBoardDifficulty = function() {
-    if (!this.game.isStarted) {
-      var difficulty = $('input[name=difficulty]:checked').val();
-      
-      this.game = new Minesweeper.Game({
-        difficulty: difficulty
-      });
-      this.boardView.resetBoard(difficulty);
-    }
+  GameView.prototype.resetGameBoard = function() {
+    var difficulty = $('input[name=difficulty]:checked').val();
+    
+    this.game = new Minesweeper.Game({
+      difficulty: difficulty
+    });
+    this.boardView.resetBoard(difficulty);
+  };
+  
+  GameView.prototype.toggleDifficultyButtonsEnabled = function() {
+    $('input[name=difficulty]').attr('disabled', this.game.isStarted);
   };
   
   GameView.prototype.startGame = function() {
-    this.game.end();
-    this.changeBoardDifficulty();
-    $("#winning-message").empty();
+    if (this.hasBeenPlayed) {
+      this.resetGameBoard();      
+      $("#winning-message").empty();
+    }
     this.setupGameData();
     this.setupTimer();
     this.game.start();
+    this.hasBeenPlayed = true;
+    this.toggleDifficultyButtonsEnabled();
   };
   
   GameView.prototype.setupGameData = function() {
@@ -57,6 +64,7 @@
     clearInterval(GameTime);
     this.game.end();
     this.messageWinner();
+    this.toggleDifficultyButtonsEnabled();
   };
   
   GameView.prototype.checkForGameEnd = function() {
