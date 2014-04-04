@@ -34,6 +34,7 @@
       this.resetGameBoard();      
       $("#winning-message").empty();
     }
+    Minesweeper.TileView.resetClickLog();
     this.setupGameData();
     this.setupTimer();
     this.game.start();

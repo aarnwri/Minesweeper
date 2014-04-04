@@ -122,6 +122,29 @@
     return revealedLocations;
   };
   
+  Board.prototype.revealNum = function(location) {
+    var that = this;
+    var revealedLocations = [];
+    
+    if (this.tiles[location].isRevealed) {
+      _.each(this.adjacentLocations(location), function(adjLocation) {
+        if (!that.tiles[adjLocation].isRevealed) {
+          if(that.tiles[adjLocation].reveal()) {
+            that.revealedTiles.push(adjLocation);
+            revealedLocations.push(adjLocation);
+      
+            if (that.tiles[adjLocation].isBomb) {
+              that.bombRevealed = true;
+              revealedLocations = that.revealBombs();
+            }
+          }
+        }
+      });
+    }
+    return revealedLocations;
+    
+  };
+  
   Board.prototype.revealBombs = function() {
     var that = this;
     
