@@ -17,7 +17,6 @@
     
     this.generateBoard();
     this.setBombs();
-    this.updateBombLocations();
     this.updateAdjacentBombCounts();
     this.updateInitialTilesToReveal();
   };
@@ -30,26 +29,13 @@
     }
   };
   
+  // * in Board.prototype.setBombs I would use the version of sample that takes a number as well and then loop over the chosen locations and loot up their tiles and set them as bombs
   Board.prototype.setBombs = function() {
     var availableTiles = _.keys(this.tiles);
     
-    for (var i = 0; i < this.numBombs; i++) {
-      var bombLocation = _.sample(availableTiles);
-      this.tiles[bombLocation].setBomb();
-
-      var bombIdx = _.indexOf(availableTiles, bombLocation);
-      availableTiles.splice(bombIdx, 1);
-    }
-  };
-  
-  Board.prototype.updateBombLocations = function() {
-    var that = this;
-    
-    this.bombLocations = [];
-    _.each(this.tiles, function(tile, location) {
-      if (tile.isBomb) {
-        that.bombLocations.push(location);
-      }
+    this.bombLocations = _.sample(availableTiles, this.numBombs);
+    _.each(this.bombLocations, function(location) {
+      this.tiles[location].setBomb();
     });
   };
   
