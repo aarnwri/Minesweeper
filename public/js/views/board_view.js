@@ -42,10 +42,10 @@
   }
   
   BoardView.prototype.updateTiles = function(tileLocations) {
-    //TODO: iterate through the tileViews, finding the ones that correspond to the tileLocation given, and call updateTile, on only those views.
-    
     _.each(this.tileViews, function(view) {
-      view.updateTile();
+      if (_.contains(tileLocations, view.tile.location)) {
+        view.updateTile();
+      }
     });
   };
   

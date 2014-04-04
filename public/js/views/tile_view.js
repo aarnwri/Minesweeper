@@ -12,18 +12,18 @@
   TileView.prototype.onTileClicked = function() {
     if (this.boardView.gameView.game.isStarted) {
       if (event.button === 0) {
-        this.revealTile();
+        this.boardView.updateTiles(this.revealTile());
       } else if (event.button === 2) {
         this.toggleFlag();
         this.boardView.updateLocationsLeftToFlag();
       }
-      this.boardView.updateTiles();
+      
       this.boardView.gameView.checkForGameEnd();
     }
   };
   
   TileView.prototype.revealTile = function() {
-    this.boardView.board.revealTiles(this.$el.data('location'));
+    return this.boardView.board.revealTiles(this.$el.data('location'));
   };
   
   TileView.prototype.updateTile = function() {
@@ -42,5 +42,6 @@
 
   TileView.prototype.toggleFlag = function() {
     this.tile.toggleFlag();
+    this.updateTile();
   };
 })(this);

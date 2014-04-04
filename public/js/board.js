@@ -24,7 +24,8 @@
   Board.prototype.generateBoard = function() {
     for (var i = 0; i < this.sizeY; i++) {
       for (var j = 0; j < this.sizeX; j++) {
-        this.tiles[(j + "," + i)] = new Minesweeper.Tile();
+        var location = (j + "," + i);
+        this.tiles[location] = new Minesweeper.Tile(location);
       }
     }
   };
@@ -105,7 +106,7 @@
       
         if (that.tiles[location2].isBomb) {
           that.bombRevealed = true;
-          that.revealBombs();
+          revealedLocations = that.revealBombs();
         } else if (that.tiles[location2].adjacentBombCount === 0) {
           _.each(that.adjacentLocations(location2), function(adjLocation) {
             if (!that.tiles[adjLocation].isRevealed) {
