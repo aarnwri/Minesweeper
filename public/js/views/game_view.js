@@ -31,10 +31,15 @@
   
   GameView.prototype.startGame = function() {
     if (this.hasBeenPlayed) {
+<<<<<<< HEAD
       this.endGame();
+=======
+      
+>>>>>>> secondAttemptAtDoubleClickFeature
       this.resetGameBoard();      
       $("#winning-message").empty();
     }
+    Minesweeper.TileView.resetClickLog();
     this.setupGameData();
     this.setupTimer();
     this.game.start();
