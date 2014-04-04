@@ -36,14 +36,24 @@
     return false
   };
   
+  // TileView.getClickType = function() {
+//     setTimeout(function() {
+//       
+//     }, 100);
+//   }
+  
   TileView.prototype.onTileClicked = function(event) {
     if (this.boardView.gameView.game.isStarted) {
       TileView.logClick(event);
+      console.log(Minesweeper.TileView.checkForTwoButtonClick());
       if (Minesweeper.TileView.checkForTwoButtonClick()) {
+        console.log("TWO BUTTON CLICK REGISTERED");
         this.boardView.updateTiles(this.revealNum());
       } else if (event.button === 0) {
+        console.log("LEFT CLICK REGISTERED");
         this.boardView.updateTiles(this.revealTile());
       } else if (event.button === 2) {
+        console.log("RIGHT CLICK REGISTERED");
         this.toggleFlag();
         this.boardView.updateLocationsLeftToFlag();
       }
@@ -53,7 +63,7 @@
   };
   
   TileView.prototype.revealTile = function() {
-    return this.boardView.board.revealTiles(this.$el.data('location'));
+    return this.boardView.board.revealTile(this.$el.data('location'));
   };
   
   TileView.prototype.revealNum = function() {
