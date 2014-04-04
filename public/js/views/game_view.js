@@ -31,6 +31,7 @@
   
   GameView.prototype.startGame = function() {
     if (this.hasBeenPlayed) {
+      this.endGame();
       this.resetGameBoard();      
       $("#winning-message").empty();
     }
