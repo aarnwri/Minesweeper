@@ -12,7 +12,6 @@
       gameView: this
     })
     
-    debugger;
     $("input[name='difficulty']").change(this.resetGameBoard.bind(this));
     $(".start-button").on("click", this.startGame.bind(this));
   };

@@ -41,7 +41,9 @@
     this.updateLocationsLeftToFlag();
   }
   
-  BoardView.prototype.updateTiles = function() {
+  BoardView.prototype.updateTiles = function(tileLocations) {
+    //TODO: iterate through the tileViews, finding the ones that correspond to the tileLocation given, and call updateTile, on only those views.
+    
     _.each(this.tileViews, function(view) {
       view.updateTile();
     });
@@ -53,8 +55,8 @@
   }
   
   BoardView.prototype.revealBombs = function() {
-    this.board.revealBombs();
-    this.updateTiles();
+    var bombsRevealed = this.board.revealBombs();
+    this.updateTiles(bombsRevealed);
   };
   
 })(this);

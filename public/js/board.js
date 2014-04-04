@@ -94,23 +94,31 @@
     });
   };
   
-  Board.prototype.revealTiles = function(location) {
+  Board.prototype.revealTiles = function(location1) {
     var that = this;
-    if(this.tiles[location].reveal()) {
-      this.revealedTiles.push(location);
+    var revealedLocations = [];
+    
+    var revealAdjacentTiles = function(location2) {
+      if(that.tiles[location2].reveal()) {
+        that.revealedTiles.push(location2);
+        revealedLocations.push(location2);
       
-      if (this.tiles[location].isBomb) {
-        this.bombRevealed = true;
-        this.revealBombs();
-      } else if (this.tiles[location].adjacentBombCount === 0 && 
-                (!this.tiles[location].isFlagged)) {
-        _.each(this.adjacentLocations(location), function(adjLocation) {
-          if (!that.tiles[adjLocation].isRevealed) {
-            that.revealTiles(adjLocation);
-          }
-        });
+        if (that.tiles[location2].isBomb) {
+          that.bombRevealed = true;
+          that.revealBombs();
+        } else if (that.tiles[location2].adjacentBombCount === 0) {
+          _.each(that.adjacentLocations(location2), function(adjLocation) {
+            if (!that.tiles[adjLocation].isRevealed) {
+              revealAdjacentTiles(adjLocation);
+            }
+          });
+        }
       }
     }
+    
+    revealAdjacentTiles(location1);
+    
+    return revealedLocations;
   };
   
   Board.prototype.revealBombs = function() {
@@ -119,6 +127,7 @@
     _.each(this.bombLocations, function(location) {
       that.tiles[location].reveal();
     });
+    return this.bombLocations;
   };
   
   Board.prototype.toggleFlag = function(location) {
