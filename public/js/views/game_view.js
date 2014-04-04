@@ -31,29 +31,43 @@
     this.changeBoardDifficulty();
     $("#winning-message").empty();
     this.setupGameData();
+    this.setupTimer();
     this.game.start();
   };
   
   GameView.prototype.setupGameData = function() {
-    var $locationsLeftToFlag = $('<div class="locations-left-to-flag">Bombs Left: ' + 
-                                  this.game.board.numBombs +'</div><br><br>');
+    var $locationsLeftToFlag = $('<span class="locations-left-to-flag">Bombs Left: ' + 
+                                  this.game.board.numBombs +'</span>');
+    var $gameTime = $('<span class="game-time">Time: ' + this.game.time + '</span>');
     $("#game-data").html($locationsLeftToFlag);
+    $("#game-data").append($gameTime);
+  };
+  
+  GameView.prototype.setupTimer = function() {
+    var that = this;
+    
+    this.game.resetTimer();
+    GameTime = setInterval(function() {
+      that.game.incrementTimer();
+      $(".game-time").html('Time: ' + that.game.time);
+    }, 1000);
   };
   
   GameView.prototype.endGame = function() {
+    clearInterval(GameTime);
     this.game.end();
   };
   
   GameView.prototype.checkForWin = function() {
     if (this.game.checkForWin()) {
-      this.game.end();
+      this.endGame();
       this.messageWinner();
     };
   };
   
   GameView.prototype.checkForLoss = function() {
     if (this.game.checkForLoss()) {
-      this.game.end();
+      this.endGame();
     }
   };
   

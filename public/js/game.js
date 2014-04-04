@@ -16,7 +16,9 @@
     
     this.board = new Minesweeper.Board(boardSizeX, boardSizeY, numBombs);
     Minesweeper.Tile.resetNumFlaggedTiles();
+    
     this.isStarted = false;
+    this.time = 0;
     this.isWon = false;
     this.isLost = false;
   };
@@ -35,6 +37,14 @@
   Game.prototype.start = function() {
     this.isStarted = true;
   };
+  
+  Game.prototype.incrementTimer = function() {
+    this.time += 1;
+  };
+  
+  Game.prototype.resetTimer = function() {
+    this.time = 0;
+  }
   
   Game.prototype.end = function() {
     this.isStarted = false;
