@@ -37,18 +37,9 @@ body {
   height: 20px;
 }
 
-body div#board {
-/*  figure out how to center the board here*/
-}
-
-div#board div {
-  
-}
-
 .row {
 	clear: left;
   float: left;
-  /*height: 20px;*/
 }
 
 .tile {

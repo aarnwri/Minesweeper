@@ -55,7 +55,6 @@
   BoardView.prototype.revealBombs = function() {
     this.board.revealBombs();
     this.updateTiles();
-    this.GameView.endGame();
   };
   
 })(this);

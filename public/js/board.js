@@ -52,8 +52,8 @@
   Board.prototype.updateInitialTilesToReveal = function() {
     var that = this;
     
-    this.tilesToReveal = _.reject(this.tiles, function(tile) {
-      return tile.isBomb;
+    this.tilesToReveal = _.reject(_.keys(this.tiles), function(location) {
+      return that.tiles[location].isBomb;
     });
   };
   

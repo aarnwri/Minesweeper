@@ -32,8 +32,9 @@
   Tile.prototype.reveal = function() {
     if (!this.isFlagged && !this.isRevealed) {
       this.isRevealed = true;
+      return true;
     }
-    return this.isRevealed;
+    return false;
   };
   
   Tile.prototype.incrementBombCount = function() {

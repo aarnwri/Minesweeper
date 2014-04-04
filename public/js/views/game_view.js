@@ -56,32 +56,20 @@
   GameView.prototype.endGame = function() {
     clearInterval(GameTime);
     this.game.end();
+    this.messageWinner();
   };
   
-  GameView.prototype.checkForWin = function() {
-    if (this.game.checkForWin()) {
-      this.endGame();
-      this.messageWinner();
-    }
-  };
-  
-  GameView.prototype.checkForLoss = function() {
-    if (this.game.checkForLoss()) {
+  GameView.prototype.checkForGameEnd = function() {
+    console.log("checkfge called");
+    if (this.game.checkForWin() || this.game.checkForLoss()) {
       this.endGame();
     }
   };
   
   GameView.prototype.messageWinner = function() {
-    $("#winning-message").html("<h1>Congrats!!! You WIN!!!</h1>");
+    if (this.game.isWon) {
+      $("#winning-message").html("<h1>Congrats!!! You WIN!!!</h1>");  
+    }
   };
   
 })(this);
-
-// * options['difficulty'] is equivalent to options.difficulty
-// * in Board.prototype.setBombs I would use the version of sample that takes a number as well and then loop over the chosen locations and loot up their tiles and set them as bombs
-// * you could probably also combine Board.prototype.updateBombLocations into Board.prototype.setBombs since the sample function basically gives you back the results of Board.prototype.updateBombLocations
-// * I like Board.prototype.updateAdjacentBombCounts
-// * Board.prototype.updateInitialTilesToReveal could be rewritten as function() {that.tilesToReveal = _.reject(this.tiles, function(tile) {tile.isBomb))}
-// * once the game starts I suggest disabling the difficulty raido buttons and re-enable then when it is over
-// * maybe combine GameView.prototype.checkForWin and GameView.prototype.checkForLoss
-// * see if you can make BoardView.prototype.updateTiles only update the TileViews for Tiles that actually changed?

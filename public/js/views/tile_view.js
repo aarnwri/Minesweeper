@@ -18,8 +18,7 @@
         this.boardView.updateLocationsLeftToFlag();
       }
       this.boardView.updateTiles();
-      this.boardView.gameView.checkForWin();
-      this.boardView.gameView.checkForLoss();
+      this.boardView.gameView.checkForGameEnd();
     }
   };
   
