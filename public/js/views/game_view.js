@@ -31,11 +31,7 @@
   
   GameView.prototype.startGame = function() {
     if (this.hasBeenPlayed) {
-<<<<<<< HEAD
       this.endGame();
-=======
-      
->>>>>>> secondAttemptAtDoubleClickFeature
       this.resetGameBoard();      
       $("#winning-message").empty();
     }

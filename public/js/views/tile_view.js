@@ -16,7 +16,6 @@
   };
   
   TileView.logClick = function(event) {
-    console.log(event);
     TileView.clickLog.push({
       button: event.button,
       time: event.timeStamp

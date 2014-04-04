@@ -29,7 +29,6 @@
   };
   
   Game.prototype.checkForLoss = function() {
-    console.log("bomb revealed: ", this.board.bombRevealed);
     return (this.isLost = this.board.bombRevealed);
   };
   
