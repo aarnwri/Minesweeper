@@ -24,14 +24,12 @@
   };
   
   Game.prototype.checkForWin = function() {
-    this.isWon = ($(this.board.tilesToReveal).not(this.board.revealedTiles).length === 0 &&
-                  $(this.board.revealedTiles).not(this.board.tilesToReveal).length === 0);
-    return this.isWon;
+    return (this.isWon = ($(this.board.tilesToReveal).not(this.board.revealedTiles).length === 0 &&
+                          $(this.board.revealedTiles).not(this.board.tilesToReveal).length === 0));
   };
   
   Game.prototype.checkForLoss = function() {
-    this.isLost = this.board.bombRevealed;
-    return this.isLost;
+    return (this.isLost = this.board.bombRevealed);
   };
   
   Game.prototype.start = function() {
