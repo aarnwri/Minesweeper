@@ -145,7 +145,6 @@
     };
     
     if (this.tiles[location].isRevealed) {
-      console.log("I SHOULDNT BE HERE>>>");
       var adjacentFlagCount = (_.filter(this.adjacentLocations(location), function(loc) {
         return that.tiles[loc].isFlagged;
       })).length;      
