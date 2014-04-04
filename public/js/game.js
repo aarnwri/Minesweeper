@@ -8,7 +8,7 @@
   };
   
   var Game = Minesweeper.Game = function(options) {
-    this.difficulty = options['difficulty'];
+    this.difficulty = options.difficulty;
     
     var boardSizeX = Minesweeper.DifficultyLevels[this.difficulty][0];
     var boardSizeY = Minesweeper.DifficultyLevels[this.difficulty][1];

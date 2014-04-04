@@ -2,9 +2,9 @@
   var Minesweeper = root.Minesweeper = (root.Minesweeper || {});
   
   var BoardView = Minesweeper.BoardView = function(options) {
-    this.$el = options['$el'];
-    this.board = options['board'];
-    this.gameView = options['gameView'];
+    this.$el = options.$el;
+    this.board = options.board;
+    this.gameView = options.gameView;
     
     this.tileViews = [];
     

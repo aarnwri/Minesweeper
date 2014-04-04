@@ -2,7 +2,7 @@
   var Minesweeper = root.Minesweeper = (root.Minesweeper || {});
   
   var GameView = Minesweeper.GameView = function(options) {
-    this.game = options['game'];
+    this.game = options.game;
     this.setupGameData();
     
     this.boardView = new Minesweeper.BoardView({
@@ -77,7 +77,6 @@
   
 })(this);
 
-// * Tile.prototype.reveal could be rewritten as Tile.prototype.reveal = function() {return (this.isRevealed = !this.isFlagged);}
 // * options['difficulty'] is equivalent to options.difficulty
 // * in Board.prototype.setBombs I would use the version of sample that takes a number as well and then loop over the chosen locations and loot up their tiles and set them as bombs
 // * you could probably also combine Board.prototype.updateBombLocations into Board.prototype.setBombs since the sample function basically gives you back the results of Board.prototype.updateBombLocations
