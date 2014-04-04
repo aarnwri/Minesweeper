@@ -60,7 +60,6 @@
   };
   
   GameView.prototype.checkForGameEnd = function() {
-    console.log("checkfge called");
     if (this.game.checkForWin() || this.game.checkForLoss()) {
       this.endGame();
     }
