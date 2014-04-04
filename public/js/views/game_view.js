@@ -77,7 +77,6 @@
   
 })(this);
 
-// * if () {} else {if () {}} structures are typically written as if (...) {...} else if (...) {...} which is equivalent
 // * Tile.prototype.reveal could be rewritten as Tile.prototype.reveal = function() {return (this.isRevealed = !this.isFlagged);}
 // * options['difficulty'] is equivalent to options.difficulty
 // * in Board.prototype.setBombs I would use the version of sample that takes a number as well and then loop over the chosen locations and loot up their tiles and set them as bombs

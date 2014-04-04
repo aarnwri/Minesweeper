@@ -30,11 +30,10 @@
   };
   
   Tile.prototype.reveal = function() {
-    if (!this.isFlagged) {
+    if (!this.isFlagged && !this.isRevealed) {
       this.isRevealed = true;
-      return true;
     }
-    return false;
+    return this.isRevealed;
   };
   
   Tile.prototype.incrementBombCount = function() {
