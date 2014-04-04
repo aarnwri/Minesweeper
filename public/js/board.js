@@ -126,23 +126,38 @@
     var that = this;
     var revealedLocations = [];
     
-    if (this.tiles[location].isRevealed) {
-      _.each(this.adjacentLocations(location), function(adjLocation) {
-        if (!that.tiles[adjLocation].isRevealed) {
-          if(that.tiles[adjLocation].reveal()) {
-            that.revealedTiles.push(adjLocation);
-            revealedLocations.push(adjLocation);
+    var revealAdjacentTiles = function(location2) {
+      if(that.tiles[location2].reveal()) {
+        that.revealedTiles.push(location2);
+        revealedLocations.push(location2);
       
-            if (that.tiles[adjLocation].isBomb) {
-              that.bombRevealed = true;
-              revealedLocations = that.revealBombs();
+        if (that.tiles[location2].isBomb) {
+          that.bombRevealed = true;
+          console.log("bombRevealed set to true");
+          revealedLocations = that.revealBombs();
+        } else if (that.tiles[location2].adjacentBombCount === 0) {
+          _.each(that.adjacentLocations(location2), function(adjLocation) {
+            if (!that.tiles[adjLocation].isRevealed) {
+              revealAdjacentTiles(adjLocation);
             }
-          }
+          });
         }
-      });
-    }
-    return revealedLocations;
+      }
+    };
     
+    if (this.tiles[location].isRevealed) {
+      var adjacentFlagCount = (_.filter(this.adjacentLocations(location), function(loc) {
+        return that.tiles[loc].isFlagged;
+      })).length;
+      console.log("adjacentFlagCount: ", adjacentFlagCount);
+      
+      if (adjacentFlagCount >= this.tiles[location].adjacentBombCount) {
+        _.each(this.adjacentLocations(location), function(adjLocation) {
+          revealAdjacentTiles(adjLocation);
+        });
+      }
+    }
+    return _.uniq(revealedLocations);
   };
   
   Board.prototype.revealBombs = function() {
