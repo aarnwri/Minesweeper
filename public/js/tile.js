@@ -23,23 +23,22 @@
     if (this.isFlagged) {
       this.isFlagged = false;
       Tile.numFlaggedTiles -= 1;
-    } else {
-      if (!this.isRevealed) {
-        this.isFlagged = true;
-        Tile.numFlaggedTiles += 1;
-      };
-    };
+    } else if (!this.isRevealed) {
+      this.isFlagged = true;
+      Tile.numFlaggedTiles += 1;
+    }
   };
   
   Tile.prototype.reveal = function() {
     if (!this.isFlagged) {
       this.isRevealed = true;
       return true;
-    };
+    }
     return false;
   };
   
   Tile.prototype.incrementBombCount = function() {
     this.adjacentBombCount += 1;
   };
+  
 })(this);

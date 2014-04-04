@@ -30,9 +30,9 @@
           boardView: this
         }));
         $row.append($tile);
-      };
+      }
       this.$el.append($row);
-    };
+    }
   };
   
   BoardView.prototype.resetBoard = function(difficulty) {

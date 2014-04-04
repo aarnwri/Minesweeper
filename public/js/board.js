@@ -26,8 +26,8 @@
     for (var i = 0; i < this.sizeY; i++) {
       for (var j = 0; j < this.sizeX; j++) {
         this.tiles[(j + "," + i)] = new Minesweeper.Tile();
-      };
-    };
+      }
+    }
   };
   
   Board.prototype.setBombs = function() {
@@ -39,7 +39,7 @@
 
       var bombIdx = _.indexOf(availableTiles, bombLocation);
       availableTiles.splice(bombIdx, 1);
-    };
+    }
   };
   
   Board.prototype.updateBombLocations = function() {
@@ -49,7 +49,7 @@
     _.each(this.tiles, function(tile, location) {
       if (tile.isBomb) {
         that.bombLocations.push(location);
-      };
+      }
     });
   };
   
@@ -69,7 +69,7 @@
     _.each(this.tiles, function(tile, location) {
       if (!tile.isBomb) {
         that.tilesToReveal.push(location);
-      };
+      }
     });
   };
   
@@ -77,7 +77,7 @@
     this.locationsLeftToFlag = this.numBombs - Minesweeper.Tile.numFlaggedTiles;
     if (this.locationsLeftToFlag < 0) {
       this.locationsLeftToFlag = 0;
-    };
+    }
     return this.locationsLeftToFlag;
   };
   
@@ -123,10 +123,10 @@
         _.each(this.adjacentLocations(location), function(adjLocation) {
           if (!that.tiles[adjLocation].isRevealed) {
             that.revealTiles(adjLocation);
-          };
+          }
         });
-      };
-    };
+      }
+    }
   };
   
   Board.prototype.revealBombs = function() {

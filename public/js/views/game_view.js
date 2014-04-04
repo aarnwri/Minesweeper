@@ -23,7 +23,7 @@
         difficulty: difficulty
       });
       this.boardView.resetBoard(difficulty);
-    };
+    }
   };
   
   GameView.prototype.startGame = function() {
@@ -62,7 +62,7 @@
     if (this.game.checkForWin()) {
       this.endGame();
       this.messageWinner();
-    };
+    }
   };
   
   GameView.prototype.checkForLoss = function() {
@@ -74,4 +74,18 @@
   GameView.prototype.messageWinner = function() {
     $("#winning-message").html("<h1>Congrats!!! You WIN!!!</h1>");
   };
+  
 })(this);
+
+// * you don't need semi-colons after if (...){...}'s, for (...){...}'s, or even most function definitions
+// * one exception to the above is that foo = function() {}; does "need" a semi-colon (except javascript would automatically put one there anyway)
+// * if () {} else {if () {}} structures are typically written as if (...) {...} else if (...) {...} which is equivalent
+// * Tile.prototype.reveal could be rewritten as Tile.prototype.reveal = function() {return (this.isRevealed = !this.isFlagged);}
+// * options['difficulty'] is equivalent to options.difficulty
+// * in Board.prototype.setBombs I would use the version of sample that takes a number as well and then loop over the chosen locations and loot up their tiles and set them as bombs
+// * you could probably also combine Board.prototype.updateBombLocations into Board.prototype.setBombs since the sample function basically gives you back the results of Board.prototype.updateBombLocations
+// * I like Board.prototype.updateAdjacentBombCounts
+// * Board.prototype.updateInitialTilesToReveal could be rewritten as function() {that.tilesToReveal = _.reject(this.tiles, function(tile) {tile.isBomb))}
+// * once the game starts I suggest disabling the difficulty raido buttons and re-enable then when it is over
+// * maybe combine GameView.prototype.checkForWin and GameView.prototype.checkForLoss
+// * see if you can make BoardView.prototype.updateTiles only update the TileViews for Tiles that actually changed?

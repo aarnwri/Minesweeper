@@ -16,7 +16,7 @@
       } else if (event.button === 2) {
         this.toggleFlag();
         this.boardView.updateLocationsLeftToFlag();
-      };
+      }
       this.boardView.updateTiles();
       this.boardView.gameView.checkForWin();
       this.boardView.gameView.checkForLoss();
@@ -33,7 +33,7 @@
         this.$el.addClass("_B");
       } else {
         this.$el.addClass("_" + this.tile.adjacentBombCount.toString() + " revealed");
-      };
+      }
     } else {
       if (this.tile.isFlagged) {
       this.$el.addClass("_F");
