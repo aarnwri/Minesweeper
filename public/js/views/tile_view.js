@@ -16,6 +16,7 @@
   };
   
   TileView.logClick = function(event) {
+    console.log(event.timeStamp);
     TileView.clickLog.push({
       button: event.button,
       time: event.timeStamp
@@ -29,7 +30,7 @@
     
     var lastTwoClicks = _.last(TileView.clickLog, 2);
     var timeDiff = Math.abs(lastTwoClicks[1].time - lastTwoClicks[0].time);
-    if (lastTwoClicks[0].button !== lastTwoClicks[1].button && timeDiff < 100) {
+    if (lastTwoClicks[0].button !== lastTwoClicks[1].button && timeDiff < 50) {
       return true;
     }
     
@@ -37,19 +38,23 @@
   };
   
   TileView.prototype.onTileClicked = function(event) {
-    if (this.boardView.gameView.game.isStarted) {
-      TileView.logClick(event);
-      if (Minesweeper.TileView.checkForTwoButtonClick()) {
-        this.boardView.updateTiles(this.revealNum());
-      } else if (event.button === 0) {
-        this.boardView.updateTiles(this.revealTile());
-      } else if (event.button === 2) {
-        this.toggleFlag();
-        this.boardView.updateLocationsLeftToFlag();
-      }
+    var that = this;
+    TileView.logClick(event);
+    
+    setTimeout(function() {
+      if (that.boardView.gameView.game.isStarted) {
+        if (TileView.checkForTwoButtonClick()) {
+          that.boardView.updateTiles(that.revealNum());
+        } else if (event.button === 0) {
+          that.boardView.updateTiles(that.revealTile());
+        } else if (event.button === 2) {
+          that.toggleFlag();
+          that.boardView.updateLocationsLeftToFlag();
+        }
       
-      this.boardView.gameView.checkForGameEnd();
-    }
+        that.boardView.gameView.checkForGameEnd();
+      }
+    }, 50)
   };
   
   TileView.prototype.revealTile = function() {
