@@ -100,7 +100,6 @@
       this.revealedTiles.push(location);
       if (this.tiles[location].isBomb) {
         this.bombRevealed = true;
-        this.revealBombs();
       }
       return true;
     }
@@ -129,7 +128,7 @@
     
     if (this.revealTile(location)) {
       revealedLocations.push(location);
-      if (this.tiles[location].adjacentBombCount === 0) {
+      if (!this.tiles[location].isBomb && this.tiles[location].adjacentBombCount === 0) {
         revealedLocations = _.union(revealedLocations, this.revealAdjacentTiles(location));
       }
     }

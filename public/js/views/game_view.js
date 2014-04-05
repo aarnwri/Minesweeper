@@ -69,6 +69,13 @@
   };
   
   GameView.prototype.checkForGameEnd = function() {
+    var that = this;
+    
+    if (this.game.checkForLoss()) {
+      setTimeout(function() {
+        that.boardView.revealBombs();
+      }, 500);
+    }
     if (this.game.checkForWin() || this.game.checkForLoss()) {
       this.endGame();
     }

@@ -55,8 +55,8 @@
   }
   
   BoardView.prototype.revealBombs = function() {
-    var bombsRevealed = this.board.revealBombs();
-    this.updateTiles(bombsRevealed);
+    this.board.revealBombs();
+    this.updateTiles(this.board.bombLocations);
   };
   
 })(this);

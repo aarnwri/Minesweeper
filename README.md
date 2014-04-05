@@ -12,7 +12,3 @@ To play:
   *click both buttons on a revealed tile (with adjacent flags) to auto reveal
    surrounding tiles.
   *clear the board to win the game.
-   
-Todo:
-
-  *refactor board.prototype.revealTile and board.prototype.revealNum
