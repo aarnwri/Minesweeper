@@ -95,66 +95,66 @@
     });
   };
   
-  Board.prototype.revealTile = function(location1) {
-    var that = this;
-    var revealedLocations = [];
-    
-    var revealAdjacentTiles = function(location2) {
-      if(that.tiles[location2].reveal()) {
-        that.revealedTiles.push(location2);
-        revealedLocations.push(location2);
-      
-        if (that.tiles[location2].isBomb) {
-          that.bombRevealed = true;
-          revealedLocations = that.revealBombs();
-        } else if (that.tiles[location2].adjacentBombCount === 0) {
-          _.each(that.adjacentLocations(location2), function(adjLocation) {
-            if (!that.tiles[adjLocation].isRevealed) {
-              revealAdjacentTiles(adjLocation);
-            }
-          });
-        }
+  Board.prototype.revealTile = function(location) {
+    if (this.tiles[location].reveal()) {
+      this.revealedTiles.push(location);
+      if (this.tiles[location].isBomb) {
+        this.bombRevealed = true;
+        this.revealBombs();
       }
+      return true;
     }
-    
-    revealAdjacentTiles(location1);
-    
-    return revealedLocations;
+    return false;
   };
   
   Board.prototype.revealNum = function(location) {
     var that = this;
     var revealedLocations = [];
     
-    var revealAdjacentTiles = function(location2) {
-      if(that.tiles[location2].reveal()) {
-        that.revealedTiles.push(location2);
-        revealedLocations.push(location2);
-      
-        if (that.tiles[location2].isBomb) {
-          that.bombRevealed = true;
-          revealedLocations = that.revealBombs();
-        } else if (that.tiles[location2].adjacentBombCount === 0) {
-          _.each(that.adjacentLocations(location2), function(adjLocation) {
-            if (!that.tiles[adjLocation].isRevealed) {
-              revealAdjacentTiles(adjLocation);
-            }
-          });
-        }
-      }
-    };
-    
     if (this.tiles[location].isRevealed) {
       var adjacentFlagCount = (_.filter(this.adjacentLocations(location), function(loc) {
         return that.tiles[loc].isFlagged;
-      })).length;      
+      })).length;
+            
       if (adjacentFlagCount >= this.tiles[location].adjacentBombCount) {
-        _.each(this.adjacentLocations(location), function(adjLocation) {
-          revealAdjacentTiles(adjLocation);
-        });
+        revealedLocations = _.union(revealedLocations, this.revealAdjacentTiles(location));
       }
     }
-    return _.uniq(revealedLocations);
+    return revealedLocations;
+  };
+  
+  Board.prototype.revealTiles = function(location) {
+    var that = this;
+    var revealedLocations = [];
+    
+    if (this.revealTile(location)) {
+      revealedLocations.push(location);
+      if (this.tiles[location].adjacentBombCount === 0) {
+        revealedLocations = _.union(revealedLocations, this.revealAdjacentTiles(location));
+      }
+    }
+    
+    return revealedLocations;
+  };
+  
+  Board.prototype.revealAdjacentTiles = function(location) {
+    var that = this;
+    var revealedLocations = [];
+    
+    var revealAdjacentTiles = function(loc) {
+      var adjacentLocations = that.adjacentLocations(loc);
+      _.each(adjacentLocations, function(adjLocation) {
+        if (that.revealTile(adjLocation)) {
+          revealedLocations.push(adjLocation);
+          if (that.tiles[adjLocation].adjacentBombCount === 0) {
+            revealAdjacentTiles(adjLocation);
+          }
+        }
+      });
+    }
+    
+    revealAdjacentTiles(location);
+    return revealedLocations;
   };
   
   Board.prototype.revealBombs = function() {

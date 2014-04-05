@@ -58,7 +58,7 @@
   };
   
   TileView.prototype.revealTile = function() {
-    return this.boardView.board.revealTile(this.$el.data('location'));
+    return this.boardView.board.revealTiles(this.$el.data('location'));
   };
   
   TileView.prototype.revealNum = function() {
