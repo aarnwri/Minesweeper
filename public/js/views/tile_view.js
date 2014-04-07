@@ -6,7 +6,7 @@
     this.tile = options.tile;
     this.boardView = options.boardView;
     
-    this.$el.on("mouseup", this.onTileClicked.bind(this));
+    this.$el.on("mousedown", this.onTileClicked.bind(this));
   }
   
   TileView.clickLog = [];
