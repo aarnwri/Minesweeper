@@ -26,23 +26,30 @@
       
     
   </head>
-  <body oncontextmenu="return false">
+  <body>
     <div class="title">
       <h1>Welcome to Minesweeper!</h1>
     </div>
-    <input type="radio" name="difficulty" value="beginner" checked>Beginner</input>
-    <input type="radio" name="difficulty" value="intermediate">Intermediate</input>
-    <input type="radio" name="difficulty" value="expert">Expert</input>
-    <button class="start-button">START!</button>
+    <span class="radio-button">
+      <input type="radio" name="difficulty" value="beginner" checked>Beginner</input>
+    </span>
+    <span class="radio-button">
+      <input type="radio" name="difficulty" value="intermediate">Intermediate</input>
+    </span>
+    <span class="radio-button">
+      <input type="radio" name="difficulty" value="expert">Expert</input>
+    </span>
+    
     <br/>
     <br/>
     <div class="container">
-      <div id="game-data">
+      <button class="start-button">START!</button>
+      <span id="game-data">
         
-      </div>
+      </span>
       <br/>
       <br/>
-      <div id="board">
+      <div id="board" oncontextmenu="return false">
       
       </div>
       <div id="winning-message">

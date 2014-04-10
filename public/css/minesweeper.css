@@ -1,5 +1,5 @@
 .locations-left-to-flag {
-  
+  margin-left: 30px;
 }
 
 .game-time {
@@ -30,11 +30,21 @@
 
 body {
   text-align: center;
+  font-size: 16px;
+  font-family: Comic, Verdana, Arial, sans-serif;
   background-color: #A1B4ED;
 }
 
+h1 {
+  font-size: 250%;
+}
+
 .start-button {
-  height: 20px;
+/*  height: 200%;*/
+}
+
+.radio-button {
+  margin-right: 20px;
 }
 
 .row {
