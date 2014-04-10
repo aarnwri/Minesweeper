@@ -4,7 +4,7 @@
   var DifficultyLevels = Minesweeper.DifficultyLevels = {
     'beginner': [8, 8, 10],
     'intermediate': [16, 16, 40],
-    'expert': [100, 50, 99]
+    'expert': [30, 16, 99]
   };
   
   var Game = Minesweeper.Game = function(options) {

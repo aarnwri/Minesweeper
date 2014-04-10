@@ -95,7 +95,18 @@
     });
   };
   
+  Board.prototype.nonRevealedAdjacentLocations = function(location) {
+    var that = this;
+    var adjacentLocations = this.adjacentLocations(location);
+    
+    return _.filter(adjacentLocations, function(adjLocation) {
+      return (!that.tiles[adjLocation].isRevealed);
+    });
+  };
+  
   Board.prototype.revealTile = function(location) {
+    console.log("location: ", location);
+    console.log("this.tiles[location]: ", this.tiles[location]);
     if (this.tiles[location].reveal()) {
       this.revealedTiles.push(location);
       if (this.tiles[location].isBomb) {
@@ -140,19 +151,32 @@
     var that = this;
     var revealedLocations = [];
     
-    var revealAdjacentTiles = function(loc) {
-      var adjacentLocations = that.adjacentLocations(loc);
-      _.each(adjacentLocations, function(adjLocation) {
-        if (that.revealTile(adjLocation)) {
-          revealedLocations.push(adjLocation);
-          if (that.tiles[adjLocation].adjacentBombCount === 0) {
-            revealAdjacentTiles(adjLocation);
-          }
+    // TODO: test whether recursive or iterative method is faster
+    // TODO: validate that recursive method was indeed causing stack issues
+    // var revealAdjacentTiles = function(loc) {
+//       var adjacentLocations = that.adjacentLocations(loc);
+//       _.each(adjacentLocations, function(adjLocation) {
+//         if (that.revealTile(adjLocation)) {
+//           revealedLocations.push(adjLocation);
+//           if (that.tiles[adjLocation].adjacentBombCount === 0) {
+//             revealAdjacentTiles(adjLocation);
+//           }
+//         }
+//       });
+//     }
+
+    var tilesToReveal = that.adjacentLocations(location);
+    while (tilesToReveal.length > 0) {
+      var loc = tilesToReveal.pop();
+      if (this.revealTile(loc)) {
+        revealedLocations.push(loc);
+        if (this.tiles[loc].adjacentBombCount === 0) {
+          tilesToReveal = _.union(tilesToReveal, this.nonRevealedAdjacentLocations(loc));
         }
-      });
+      }
     }
     
-    revealAdjacentTiles(location);
+    // revealAdjacentTiles(location);
     return revealedLocations;
   };
   
