@@ -97,8 +97,8 @@ h1 {
   background-color: #B7BAED;
 }
 
-.revealed {
-  background-color: #A1B4ED !important;
+.tile.revealed {
+  background-color: #A1B4ED;
   border: 1px solid grey;
   width: 22px;
   min-width: 22px;
@@ -145,70 +145,18 @@ h1 {
   color: black;
 }
 
-._B {
-  background-color: red !important;
+.tile._B {
+  background-color: red;
 }
 
 ._B::before {
   content: "B";
 }
 
-._F {
-  background-color: green !important;
+.tile._F {
+  background-color: green;
 }
 
 ._F::before {
   content: "F";
 }
-
-/*******************************************************************/
-
-/*.start-button {
-  -moz-box-shadow:inset 0px 0px 0px 0px #ffe4c4;
-  -webkit-box-shadow:inset 0px 0px 0px 0px #ffe4c4;
-  box-shadow:inset 0px 0px 0px 0px #ffe4c4;
-  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fae4c8), color-stop(1, #fa9112) );
-  background:-moz-linear-gradient( center top, #fae4c8 5%, #fa9112 100% );
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fae4c8', endColorstr='#fa9112');
-  background-color:#fae4c8;
-  -webkit-border-top-left-radius:20px;
-  -moz-border-radius-topleft:20px;
-  border-top-left-radius:20px;
-  -webkit-border-top-right-radius:20px;
-  -moz-border-radius-topright:20px;
-  border-top-right-radius:20px;
-  -webkit-border-bottom-right-radius:20px;
-  -moz-border-radius-bottomright:20px;
-  border-bottom-right-radius:20px;
-  -webkit-border-bottom-left-radius:20px;
-  -moz-border-radius-bottomleft:20px;
-  border-bottom-left-radius:20px;
-  text-indent:0;
-  border:2px solid #c2923e;
-  display:inline-block;
-  color:#20136e;
-  font-family:Verdana;
-  font-size:16px;
-  font-weight:bold;
-  font-style:normal;
-  height:40px;
-  line-height:20px;
-  width:103px;
-  text-decoration:none;
-  text-align:center;
-  text-shadow:1px 1px 0px #c28529;
-}
-
-.start-button:hover {
-  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fa9112), color-stop(1, #fae4c8) );
-  background:-moz-linear-gradient( center top, #fa9112 5%, #fae4c8 100% );
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fa9112', endColorstr='#fae4c8');
-  background-color:#fa9112;
-  
-}
-
-.start-button:active {
-  position:relative;
-  top:1px;
-}*/
-/* This button was generated using CSSButtonGenerator.com */

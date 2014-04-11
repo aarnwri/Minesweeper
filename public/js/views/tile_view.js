@@ -6,7 +6,6 @@
     this.tile = options.tile;
     this.boardView = options.boardView;
     
-    // this.$el.on("mousedown", this.listenForMouseUp.bind(this));
     this.$el.on("mousedown", this.onTileClicked.bind(this));
   }
   
@@ -35,10 +34,6 @@
     }
     
     return false
-  };
-  
-  TileView.prototype.listenForMouseUp = function(event) {
-    // $(document).one("mouseup", this.onTileClicked.bind(event));
   };
   
   TileView.prototype.onTileClicked = function(event) {
