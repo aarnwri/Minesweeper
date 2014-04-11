@@ -30,24 +30,32 @@
     <div class="title">
       <h1>Welcome to Minesweeper!</h1>
     </div>
-    <span class="radio-button">
-      <input type="radio" name="difficulty" value="beginner" checked>Beginner</input>
-    </span>
-    <span class="radio-button">
-      <input type="radio" name="difficulty" value="intermediate">Intermediate</input>
-    </span>
-    <span class="radio-button">
-      <input type="radio" name="difficulty" value="expert">Expert</input>
-    </span>
     
-    <br/>
-    <br/>
-    <button class="start-button">START!</button>
-    <span id="game-data">
-      
-    </span>
-    <br/>
-    <br/>
+    
+    <div id="difficulty-setting">
+      <span class="radio-button">
+        <input type="radio" name="difficulty" value="beginner" id="beginner" checked />
+        <label for="beginner">Beginner</label>
+      </span>
+      <span class="radio-button">
+        <input type="radio" name="difficulty" value="intermediate" id="intermediate" />
+        <label for="intermediate">Intermediate</label>
+      </span>
+      <span class="radio-button">
+        <input type="radio" name="difficulty" value="expert" id="expert" />
+        <label for="expert">Expert</label>
+      </span>
+    </div>
+    <div id="game-data">
+      <span><button class="start-button">START!</button></span>
+      <span class="locations-left-to-flag">
+        <label>Bombs: </label><var></var>
+      </span>
+      <span class="game-time">
+        <label>Time: </label><var></var>
+      </span>
+    </div>
+    
     <div class="container">
       
       <div id="board" oncontextmenu="return false">

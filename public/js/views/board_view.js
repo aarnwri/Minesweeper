@@ -51,7 +51,13 @@
   
   BoardView.prototype.updateLocationsLeftToFlag = function() {
     var numLocations = this.board.updateLocationsLeftToFlag();
-    $(".locations-left-to-flag").html('Bombs Left: ' + numLocations);
+    var $varEl = $(".locations-left-to-flag > var");
+    $varEl.html(numLocations);
+    if (numLocations === 0) {
+      $varEl.css("background-color", "green");
+    } else {
+      $varEl.css("background-color", "red");
+    }
   }
   
   BoardView.prototype.revealBombs = function() {

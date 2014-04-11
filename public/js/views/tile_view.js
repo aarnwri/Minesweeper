@@ -6,6 +6,7 @@
     this.tile = options.tile;
     this.boardView = options.boardView;
     
+    // this.$el.on("mousedown", this.listenForMouseUp.bind(this));
     this.$el.on("mousedown", this.onTileClicked.bind(this));
   }
   
@@ -34,6 +35,10 @@
     }
     
     return false
+  };
+  
+  TileView.prototype.listenForMouseUp = function(event) {
+    // $(document).one("mouseup", this.onTileClicked.bind(event));
   };
   
   TileView.prototype.onTileClicked = function(event) {
@@ -67,7 +72,7 @@
   TileView.prototype.updateTile = function() {
     if (this.tile.isRevealed) {
       if (this.tile.isBomb) {
-        this.$el.addClass("_B");
+        this.$el.addClass("_B" + " revealed");
       } else {
         this.$el.addClass("_" + this.tile.adjacentBombCount.toString() + " revealed");
       }

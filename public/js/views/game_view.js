@@ -44,11 +44,8 @@
   };
   
   GameView.prototype.setupGameData = function() {
-    var $locationsLeftToFlag = $('<span class="locations-left-to-flag">Bombs Left: ' + 
-                                  this.game.board.numBombs +'</span>');
-    var $gameTime = $('<span class="game-time">Time: ' + this.game.time + '</span>');
-    $("#game-data").html($locationsLeftToFlag);
-    $("#game-data").append($gameTime);
+    $("span.locations-left-to-flag > var").html(this.game.board.numBombs);
+    $(".game-time > var").html(this.game.time);
   };
   
   GameView.prototype.setupTimer = function() {
@@ -57,7 +54,7 @@
     this.game.resetTimer();
     GameTime = setInterval(function() {
       that.game.incrementTimer();
-      $(".game-time").html('Time: ' + that.game.time);
+      $(".game-time > var").html(that.game.time);
     }, 1000);
   };
   

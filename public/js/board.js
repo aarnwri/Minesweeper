@@ -105,8 +105,6 @@
   };
   
   Board.prototype.revealTile = function(location) {
-    console.log("location: ", location);
-    console.log("this.tiles[location]: ", this.tiles[location]);
     if (this.tiles[location].reveal()) {
       this.revealedTiles.push(location);
       if (this.tiles[location].isBomb) {

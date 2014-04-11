@@ -2,15 +2,45 @@
   margin-left: 30px;
 }
 
+.locations-left-to-flag var {
+  background-color: red;
+}
+
+var {
+  display: inline-block;
+  font-size: 16px;
+  font-family: Verdana, Arial, sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  width: 80px;
+  height: 26px;
+  line-height: 26px;
+  vertical-align: middle;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 .game-time {
   margin-left: 30px;
+}
+
+.game-time var {
+  background-color: #8F8FBF;
+  
+}
+
+#game-data {
+  margin-top: 30px;
 }
 
 #board {
   display: table;
   margin: auto;
+  margin-top: 30px;
   overflow: auto;
-  border: 1px solid black;
+  border: 5px double black;
   background-color: #8F8FBF;
 }
 
@@ -21,7 +51,7 @@
 body {
   text-align: center;
   font-size: 16px;
-  font-family: Comic, Verdana, Arial, sans-serif;
+  font-family: Verdana, Arial, sans-serif;
   background-color: #A1B4ED;
 }
 
@@ -30,7 +60,19 @@ h1 {
 }
 
 .start-button {
-/*  TODO: make this button bigger here;*/
+  font-size: 16px;
+  font-family: Verdana, Arial, sans-serif;
+  width: 80px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #F9EDFC;
+  /*background-color: #A1B4ED;*/
+}
+
+.start-button:focus {
+  outline: 0;
 }
 
 .radio-button {
@@ -43,81 +85,130 @@ h1 {
 
 .tile {
   display: table-cell;
-	border: 1px solid black;
-  content: '';
+	border: 2px outset grey;
 	width: 20px;
   min-width: 20px;
   height: 20px;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+.tile:hover {
+  background-color: #B7BAED;
 }
 
 .revealed {
-  background-color: #A1B4ED;
+  background-color: #A1B4ED !important;
+  border: 1px solid grey;
+  width: 22px;
+  min-width: 22px;
+  height: 22px;
 }
 
-._0 {
-  background-color: #A1B4ED;
-}
-
-._1:before {
+._1::before {
   content: "1";
   color: blue;
-  font-weight: bold;
 }
 
-._2:before {
+._2::before {
   content: "2";
   color: green;
-  font-weight: bold;
 }
 
-._3:before {
+._3::before {
   content: "3";
-  color: red;
-  font-weight: bold;
+  color: #D60D0D;
 }
 
-._4:before {
+._4::before {
   content: "4";
   color: darkblue;
-  font-weight: bold;
 }
 
-._5:before {
+._5::before {
   content: "5";
-  color: darkorange;
-  font-weight: bold;
+  color: orangered;
 }
 
-._6:before {
+._6::before {
   content: "6";
   color: purple;
-  font-weight: bold;
 }
 
-._7:before {
+._7::before {
   content: "7";
   color: grey;
-  font-weight: bold;
 }
 
-._8:before {
+._8::before {
   content: "8";
   color: black;
-  font-weight: bold;
 }
 
-._B:before {
+._B {
+  background-color: red !important;
+}
+
+._B::before {
   content: "B";
 }
 
-.tile._B {
-  background-color: red;
+._F {
+  background-color: green !important;
 }
 
-._F:before {
+._F::before {
   content: "F";
 }
 
-.tile._F {
-  background-color: green;
+/*******************************************************************/
+
+/*.start-button {
+  -moz-box-shadow:inset 0px 0px 0px 0px #ffe4c4;
+  -webkit-box-shadow:inset 0px 0px 0px 0px #ffe4c4;
+  box-shadow:inset 0px 0px 0px 0px #ffe4c4;
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fae4c8), color-stop(1, #fa9112) );
+  background:-moz-linear-gradient( center top, #fae4c8 5%, #fa9112 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fae4c8', endColorstr='#fa9112');
+  background-color:#fae4c8;
+  -webkit-border-top-left-radius:20px;
+  -moz-border-radius-topleft:20px;
+  border-top-left-radius:20px;
+  -webkit-border-top-right-radius:20px;
+  -moz-border-radius-topright:20px;
+  border-top-right-radius:20px;
+  -webkit-border-bottom-right-radius:20px;
+  -moz-border-radius-bottomright:20px;
+  border-bottom-right-radius:20px;
+  -webkit-border-bottom-left-radius:20px;
+  -moz-border-radius-bottomleft:20px;
+  border-bottom-left-radius:20px;
+  text-indent:0;
+  border:2px solid #c2923e;
+  display:inline-block;
+  color:#20136e;
+  font-family:Verdana;
+  font-size:16px;
+  font-weight:bold;
+  font-style:normal;
+  height:40px;
+  line-height:20px;
+  width:103px;
+  text-decoration:none;
+  text-align:center;
+  text-shadow:1px 1px 0px #c28529;
 }
+
+.start-button:hover {
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fa9112), color-stop(1, #fae4c8) );
+  background:-moz-linear-gradient( center top, #fa9112 5%, #fae4c8 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fa9112', endColorstr='#fae4c8');
+  background-color:#fa9112;
+  
+}
+
+.start-button:active {
+  position:relative;
+  top:1px;
+}*/
+/* This button was generated using CSSButtonGenerator.com */
