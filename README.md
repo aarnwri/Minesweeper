@@ -4,7 +4,7 @@ This is a static html page with lots of javascript.
 
 To play:
 
-  Go to http://aarnwri-minesweeper.herokuapp.com/ or download the file and open
+  Go to http://minesweeper.wrightcoding.com/ or download the file and open
    it in the browser.
   Click the start button.
   Left click on a square to reveal a tile and right click a square to flag it.
