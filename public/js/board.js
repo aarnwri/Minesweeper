@@ -147,34 +147,29 @@
   
   Board.prototype.revealAdjacentTiles = function(location) {
     var that = this;
+    
     var revealedLocations = [];
+    var tilesToReveal = that.adjacentLocations(location);
     
-    var revealAdjacentTiles = function(loc) {
-      var adjacentLocations = that.adjacentLocations(loc);
-      _.each(adjacentLocations, function(adjLocation) {
-        if (that.revealTile(adjLocation)) {
-          revealedLocations.push(adjLocation);
-          if (that.tiles[adjLocation].adjacentBombCount === 0) {
-            revealAdjacentTiles(adjLocation);
-          }
+    var tilesAddedToTilesToReveal = {};
+    _.each(tilesToReveal, function(tile) {
+      tilesAddedToTilesToReveal[tile] = true;
+    });
+    
+    while (tilesToReveal.length > 0) {
+      var loc = tilesToReveal.pop();
+      if (this.revealTile(loc)) {
+        revealedLocations.push(loc);
+        if (this.tiles[loc].adjacentBombCount === 0) {
+          _.each(this.nonRevealedAdjacentLocations(loc), function(nonRevealedLoc) {
+            if (!tilesAddedToTilesToReveal[nonRevealedLoc]) {
+              tilesToReveal.push(nonRevealedLoc);
+            }
+          });
         }
-      });
+      }
     }
-
-    // NOTE: non-recursive version to avoid stack issues (use if implementing
-    // custom option)
-    // var tilesToReveal = that.adjacentLocations(location);
-    //     while (tilesToReveal.length > 0) {
-    //       var loc = tilesToReveal.pop();
-    //       if (this.revealTile(loc)) {
-    //         revealedLocations.push(loc);
-    //         if (this.tiles[loc].adjacentBombCount === 0) {
-    //           tilesToReveal = _.union(tilesToReveal, this.nonRevealedAdjacentLocations(loc));
-    //         }
-    //       }
-    //     }
     
-    revealAdjacentTiles(location);
     return revealedLocations;
   };
   
